@@ -1,0 +1,2 @@
+# anirater
+Anime rating website!
