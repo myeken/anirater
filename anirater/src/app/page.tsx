@@ -2,14 +2,10 @@
 
 export default function Home() {
   return (
-    <main className="max-w-5xl mx-auto p-4">
-      <div>
-        <h1 className="text-4xl font-medium ">AniRater</h1>
-      </div>
-      <div>
-
-      </div>
-      
-    </main>
+    <>
+    <section className="max-w-5xl mx-auto">
+      <h2 className="text-2xl mb-4 font-medium p-3">Trending This Week:</h2>
+    </section>
+    </>
   );
 }
