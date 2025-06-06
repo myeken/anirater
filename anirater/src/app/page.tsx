@@ -10,7 +10,8 @@ export default async function Home() {
   
     <div>
       <section className="max-w-5xl mx-auto">
-      <h2 className="text-2xl mb-4 font-medium p-3">Current Seasonal Anime:</h2>
+      <h2 className="text-2xl mb-4 font-medium p-1 border-b-4 border-pink-200">Current Seasonal Anime:</h2>
+      
 
       <AnimeCarousel animeList={animeList} />
       {/* {animeList.map((anime) => (
