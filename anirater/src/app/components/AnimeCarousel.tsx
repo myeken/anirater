@@ -85,13 +85,15 @@ export default function AnimeCarousel({ animeList }: { animeList: Anime[] }) {
       {/* Navigation Arrows */}
       <button 
         onClick={scrollPrev}
-        className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/50 text-pink-200 p-2 rounded-full z-10"
+        className="absolute left-4 top-1/2 -translate-y-1/2 bg-black/70 text-pink-300 p-3 rounded-full z-10
+                  hover:bg-black/90 transition-all w-12 h-12 flex items-center justify-center"
       >
         &lt;
       </button>
       <button 
         onClick={scrollNext}
-        className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/50 text-pink-200 p-2 rounded-full z-10"
+        className="absolute right-4 top-1/2 -translate-y-1/2 bg-black/70 text-pink-300 p-3 rounded-full z-10
+                  hover:bg-black/90 transition-all w-12 h-12 flex items-center justify-center"
       >
         &gt;
       </button>
