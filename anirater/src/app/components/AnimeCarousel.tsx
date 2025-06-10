@@ -49,12 +49,12 @@ export default function AnimeCarousel({ animeList }: { animeList: Anime[] }) {
   const scrollNext = useCallback(() => emblaApi?.scrollNext(), [emblaApi]);
 
   return (
-    <div className="relative overflow-hidden" ref={emblaRef}>
-      <div className="flex gap-4">
+    <div className="relative overflow-hidden px-2.5" ref={emblaRef}>
+      <div className="flex w-full gap-2">
         {animeWithKeys.map(({ uniqueKey, ...anime }) => (
           <div 
             key={uniqueKey}
-            className="flex-[0_0_300px] min-w-0 relative h-120 rounded-xl overflow-hidden"
+            className="flex-[0_0_33%] min-w-0 relative h-120 rounded-xl overflow-hidden"
           >
             {/* Image with Overlay */}
             <div className="relative h-full w-full group">
