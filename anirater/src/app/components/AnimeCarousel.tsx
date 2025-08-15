@@ -8,7 +8,7 @@ import { base } from 'framer-motion/client';
 
 let uniqueIdCounter = 0;
 
-export default function AnimeCarousel({ animeList }: { animeList: Anime[] }) {
+export default function AnimeCarousel({ animeList, onAnimeClick }: { animeList: Anime[], onAnimeClick: (anime: Anime) => void;}) {
       const [refreshKey, setRefreshKey] = useState(0);
 
   // Memoized deduplication with guaranteed unique keys
@@ -40,6 +40,7 @@ export default function AnimeCarousel({ animeList }: { animeList: Anime[] }) {
     }, 
     [Autoplay({ 
       delay: 3000,
+      stopOnMouseEnter: true,
       stopOnInteraction: false,
       playOnInit: true,
      })]
@@ -49,12 +50,13 @@ export default function AnimeCarousel({ animeList }: { animeList: Anime[] }) {
   const scrollNext = useCallback(() => emblaApi?.scrollNext(), [emblaApi]);
 
   return (
-    <div className="relative overflow-hidden px-2.5" ref={emblaRef}>
-      <div className="flex w-full gap-2">
+    <div className="relative overflow-hidden " ref={emblaRef}>
+      <div className="flex w-full gap-2 pl-2 pr-[calc(33.333% - 1.5rem)]">
         {animeWithKeys.map(({ uniqueKey, ...anime }) => (
           <div 
             key={uniqueKey}
-            className="flex-[0_0_33%] min-w-0 relative h-120 rounded-xl overflow-hidden"
+            className="flex-[0_0_33%] shrink-0 relative h-120 rounded-xl overflow-hidden"
+            onClick={() => onAnimeClick(anime)}
           >
             {/* Image with Overlay */}
             <div className="relative h-full w-full group">
