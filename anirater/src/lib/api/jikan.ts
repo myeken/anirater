@@ -25,3 +25,19 @@ export async function getTrendingAnime(): Promise<Anime[]> {
   return Array.from(animeMap.values());
 }
 
+export async function getAnimeDetails(mal_id: number): Promise<Anime | null> {
+  try { 
+    const res = await fetch(`https://api.jikan.moe/v4/anime/${mal_id}`);
+    if(!res.ok) {
+      throw new Error('Failed to fetch anime details');
+    }
+    const data = await res.json();
+    return data.data;
+  }
+  catch (error) {
+    console.error('Error fetching anime details:', error);
+    return null;
+  }
+}
+
+
