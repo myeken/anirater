@@ -40,4 +40,19 @@ export async function getAnimeDetails(mal_id: number): Promise<Anime | null> {
   }
 }
 
+export async function getTopAnime(): Promise<Anime[]> {
+  try {
+    const res = await fetch('https://api.jikan.moe/v4/top/anime?filter=bypopularity');
+    if (!res.ok) {
+      throw new Error('Failed to fetch top anime');
+    }
+    const data = await res.json();
+    return data.data.slice(0,15);
+  }
+  catch (error) {
+    console.error('Error fetching top anime: ', error);
+    return [];
+  }
+}
+
 
