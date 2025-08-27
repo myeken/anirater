@@ -5,6 +5,7 @@ export async function getTrendingAnime(): Promise<Anime[]> {
   const data = await res.json();
 
   const animeMap = new Map<number, Anime>();
+  
 
   data.data.forEach((anime: Anime) => {
 
@@ -39,18 +40,50 @@ export async function getAnimeDetails(mal_id: number): Promise<Anime | null> {
     return null;
   }
 }
+const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
 export async function getTopAnime(): Promise<Anime[]> {
   try {
-    const res = await fetch('https://api.jikan.moe/v4/top/anime?filter=bypopularity');
+    // Add delay to respect rate limits
+    await delay(1000); // Wait 1 second
+    
+    console.log('Fetching top anime...');
+    
+    const res = await fetch('https://api.jikan.moe/v4/top/anime?filter=bypopularity&limit=15');
+    console.log('Response status:', res.status);
+    
     if (!res.ok) {
-      throw new Error('Failed to fetch top anime');
+      if (res.status === 429) {
+        throw new Error('API rate limit exceeded. Please wait a moment and try again.');
+      }
+      throw new Error(`HTTP error! status: ${res.status}`);
+    }
+    
+    const data = await res.json();
+    console.log('Top anime response:', data);
+    
+    if (!data || !data.data) {
+      throw new Error('Invalid API response structure');
+    }
+    
+    return data.data.slice(0, 15);
+  } catch (error) {
+    console.error('Error fetching top anime:', error);
+    throw error;
+  }
+}
+
+export async function searchAnime(query: string): Promise<Anime[]>{
+  try{
+    const res = await fetch(`https://api.jikan.moe/v4/anime?q=${encodeURIComponent(query)}&sfw&order_by=score&sort=desc&limit=20`);
+    if(!res.ok){
+      throw new Error('Failed to search anime');
     }
     const data = await res.json();
-    return data.data.slice(0,15);
+    return data.data.slice(0,20);
   }
-  catch (error) {
-    console.error('Error fetching top anime: ', error);
+  catch (error){
+    console.error('Error searching anime:', error);
     return [];
   }
 }
