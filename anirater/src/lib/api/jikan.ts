@@ -55,4 +55,20 @@ export async function getTopAnime(): Promise<Anime[]> {
   }
 }
 
+export async function searchAnime(query: string): Promise<Anime[]> {
+  if(!query.trim()) return [];
+
+  try {
+    const res = await fetch(`https://api.jikan.moe/v4/anime?q=${encodeURIComponent(query)}&limit=15&sfw`);
+    if(!res.ok){
+      throw new Error('Failed to fetch search results');
+    }
+    const data = await res.json();
+    return data.data;
+  } catch (error) {
+    console.error('Error searching anime:', error);
+    return [];
+  }
+}
+
 
